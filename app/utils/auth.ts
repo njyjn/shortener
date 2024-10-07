@@ -5,8 +5,6 @@ const client = new JwksClient({
   jwksUri: `${process.env.AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`,
 });
 
-console.log(`${process.env.AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`);
-
 export function getKey(
   header: jwt.JwtHeader,
   callback: (err: Error | null, key?: string | Buffer) => void,
@@ -29,7 +27,7 @@ export const verifyToken = (authHeader: string | null) => {
     throw new Error("Unauthorized");
   }
   const token = authHeader.split(" ")[1];
-
+  console.log(token);
   return new Promise((resolve, reject) => {
     jwt.verify(token, getKey, { algorithms: ["RS256"] }, (err, decoded) => {
       if (err) {
