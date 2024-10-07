@@ -27,7 +27,7 @@ export const verifyToken = (authHeader: string | null) => {
     throw new Error("Unauthorized");
   }
   const token = authHeader.split(" ")[1];
-  console.log(token);
+
   return new Promise((resolve, reject) => {
     jwt.verify(token, getKey, { algorithms: ["RS256"] }, (err, decoded) => {
       if (err) {
