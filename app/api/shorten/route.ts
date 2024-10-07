@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
-import { verifyToken } from "@/utils/auth";
+import { verifyToken } from "@/app/utils/auth";
 
 export async function POST(req: Request) {
   const authHeader = req.headers.get("authorization");

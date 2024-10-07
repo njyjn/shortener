@@ -5,6 +5,8 @@ const client = new JwksClient({
   jwksUri: `${process.env.AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`,
 });
 
+console.log(`${process.env.AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`);
+
 export function getKey(
   header: jwt.JwtHeader,
   callback: (err: Error | null, key?: string | Buffer) => void,
