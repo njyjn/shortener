@@ -8,7 +8,6 @@ export async function GET(req: Request) {
   try {
     await verifyToken(authHeader);
   } catch (err) {
-    console.log(err);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -11,6 +11,7 @@ export function getKey(
 ) {
   client.getSigningKey(header.kid, function (err, key) {
     if (err || !key) {
+      console.log(`Unable to retrieve signing key: ${err}`);
       callback(new Error("Unable to retrieve signing key"));
       return;
     }
@@ -22,6 +23,7 @@ export function getKey(
 
 export const verifyToken = (authHeader: string | null) => {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    console.log("Failed to verify token: Invalid auth header");
     throw new Error("Unauthorized");
   }
   const token = authHeader.split(" ")[1];
@@ -29,6 +31,7 @@ export const verifyToken = (authHeader: string | null) => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, getKey, { algorithms: ["RS256"] }, (err, decoded) => {
       if (err) {
+        console.log(`Failed to verify token: ${err}`);
         reject(new Error("Unauthorized"));
       } else {
         resolve(decoded);
