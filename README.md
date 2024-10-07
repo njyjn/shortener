@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# A Link Shortener
 
-## Getting Started
+An API-only link shortener protected by Auth0. Uses Postgres as the underlying database. API routes are CORS-protected and intended for use by an admin console.
 
-First, run the development server:
+## Shorten
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+`POST /api/shorten`
+
+### Body
+
+```json
+{
+  "longUrl": "https://www.google.com",
+  "customCode": "aBc123"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+_customCode is optional_
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Response
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```json
+{
+  "shortUrl": "https://nswu.co/aBc123"
+}
+```
 
-## Learn More
+## Show
 
-To learn more about Next.js, take a look at the following resources:
+`GET /api/get-urls`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Response
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```json
+{
+  "urls": [
+    {
+      "shortCode": "aBc123",
+      "longUrl": "https://www.google.com",
+      "createdAt": "2024-12-31T23:59:59.000"
+    }
+  ]
+}
+```
 
-## Deploy on Vercel
+## CORS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Add comma-separated origins to the environment variable `CORS_ALLOWED_ORIGINS`.
