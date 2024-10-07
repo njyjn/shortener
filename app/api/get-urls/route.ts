@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { verifyToken } from "@/utils/auth";
 
+export const runtime = 'edge';
+
 export async function GET(req: Request) {
   const authHeader = req.headers.get("authorization");
 
